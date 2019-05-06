@@ -16,11 +16,10 @@ function buildMetadata(sample) {
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
       Object.entries(metaData).forEach(pair => {
-        d3.select("p")
+        d3.select("#sample-metadata")
         .append("p")
-        .text(pair)
+        .text(`${pair[0]}: ${pair[1]}`)
       })
-      console.log(Object.entries(metaData));    
   });
 
     // BONUS: Build the Gauge Chart
@@ -30,8 +29,24 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
-
+  d3.json(`/samples/${sample}`).then((sampleData) => {
+    var data = sampleData;
     // @TODO: Build a Bubble Chart using the sample data
+    d3.select("#bubble")
+      .html("")
+      console.log(sampleData.otu_labels)
+      var trace = {
+        x: sampleData.otu_ids,
+        y: sampleData.sample_values,
+        mode: 'markers',
+        marker: {
+          size: sampleData.sample_values
+        }
+        };
+      console.log(trace)
+
+
+  });
 
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
@@ -53,7 +68,7 @@ function init() {
 
     // Use the first sample from the list to build the initial plots
     const firstSample = sampleNames[0];
-    // buildCharts(firstSample);
+    buildCharts(firstSample);
     buildMetadata(firstSample);
     
   });
