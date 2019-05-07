@@ -5,7 +5,7 @@ function buildGauge(sample) {
         console.log(level)
 
         // Trig to calc meter point
-        var degrees = 9 - level,
+        var degrees = 180 - level*20,
             radius = .5;
         var radians = degrees * Math.PI / 180;
         var x = radius * Math.cos(radians);
