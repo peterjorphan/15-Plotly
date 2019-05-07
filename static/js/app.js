@@ -46,15 +46,47 @@ function buildCharts(sample) {
         }
       };
 
-      var bubbleData = [trace1]
+      var bubbleData = [trace1];
 
-      console.log(sampleData.otu_labels)
       Plotly.newPlot('bubble', bubbleData);
 
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
 
+    // Create array with value/index pair objects
+    var sampleValues = []
+    sampleData.sample_values.map((x, i) => sampleValues[i] = {x, i});
+    console.log(sampleValues)
+
+    // Sort the list by the values of the pairs and slice the top 10
+    var slicedSampleValues = sampleValues.sort(function(a, b){return b.x - a.x}).slice(0,10);
+    console.log(slicedSampleValues)   
+
+    // Create arrays for the sliced values and indices
+    var pieValues = slicedSampleValues.map(a => a['x']);
+    console.log(pieValues)
+    var indices = slicedSampleValues.map(a => a['i']);
+    console.log(indices)
+
+    // Use the sliced indices to create arrays for the labels and hovertext
+    var pieLabels = indices.map(i => sampleData.otu_ids[i]);
+    console.log(pieLabels)
+    var pieHovertext = indices.map(i => sampleData.otu_labels[i]);
+    console.log(pieHovertext)
+
+  d3.select('#pie')
+    .html("")
+    var trace2 = {
+      values: pieValues,
+      labels: pieLabels,
+      hovertext: pieHovertext,
+      type: "pie"
+    };
+
+    var pieData = [trace2];
+
+    Plotly.plot("pie", pieData);
 
   });
 
