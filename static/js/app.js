@@ -75,20 +75,20 @@ function buildCharts(sample) {
     var pieHovertext = indices.map(i => sampleData.otu_labels[i]);
     console.log(pieHovertext)
 
-  d3.select('#pie')
-    .html("")
-    var trace2 = {
-      values: pieValues,
-      labels: pieLabels,
-      hovertext: pieHovertext,
-      type: "pie"
-    };
+    d3.select('#pie')
+      .html("")
+      var trace2 = {
+        values: pieValues,
+        labels: pieLabels,
+        hovertext: pieHovertext,
+        type: "pie"
+      };
 
-    var pieData = [trace2];
+      var pieData = [trace2];
 
-    Plotly.newPlot("pie", pieData, {responsive: true});
+      Plotly.newPlot("pie", pieData, {responsive: true});
 
-  });
+    });
 
 }
 
