@@ -48,7 +48,7 @@ function buildCharts(sample) {
 
       var bubbleData = [trace1];
 
-      Plotly.newPlot('bubble', bubbleData);
+      Plotly.newPlot('bubble', bubbleData, {responsive: true});
 
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
@@ -86,7 +86,7 @@ function buildCharts(sample) {
 
     var pieData = [trace2];
 
-    Plotly.plot("pie", pieData);
+    Plotly.newPlot("pie", pieData, {responsive: true});
 
   });
 
@@ -109,7 +109,7 @@ function init() {
     const firstSample = sampleNames[0];
     buildCharts(firstSample);
     buildMetadata(firstSample);
-    
+    // buildGauge(firstSample);
   });
 }
 
@@ -117,6 +117,7 @@ function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
   buildCharts(newSample);
   buildMetadata(newSample);
+  // buildGauge(newSample);
 }
 
 // Initialize the dashboard
